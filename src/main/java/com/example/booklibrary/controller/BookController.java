@@ -22,8 +22,11 @@ public class BookController {
         return bookService.getAllBooks();
     }
 
-    @GetMapping("{isbn}")
+    @GetMapping(path = "{isbn}")
     public Book getById(@PathVariable String isbn){
         return bookService.getBookById(isbn);
     }
+
+    @DeleteMapping(path = "{isbn}")
+    public Book deleteBook(@PathVariable String isbn) {return bookService.deleteBook(isbn);}
 }

@@ -31,4 +31,8 @@ public class BookRepository {
     public Book getBookById(String isbn) {
         return bookMap.get(isbn);
     }
+
+    public Book deleteBook(String isbn) {
+        return bookMap.remove(isbn);
+    }
 }
