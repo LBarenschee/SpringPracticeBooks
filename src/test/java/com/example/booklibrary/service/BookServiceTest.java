@@ -14,23 +14,10 @@ import static org.mockito.Mockito.*;
 class BookServiceTest {
 
     BookRepository bookRepo = mock(BookRepository.class);
-    BookService bookService = new BookService();
+    BookService bookService = new BookService(bookRepo);
 
     Book book1 = new Book("1234", "Bibel");
     Book book2 = new Book("666", "Black Magic");
-
-   public void fillRepo() {
-       bookRepo.addBook(book1);
-       bookRepo.addBook(book2);
-   }
-
-/*    List<Book> bookList = new ArrayList<>();
-
-    public void addBookToList () {
-        bookList.add(book1);
-        bookList.add(book2);
-    }*/
-
 
     @Test
     void addBook() {
@@ -43,22 +30,22 @@ class BookServiceTest {
         //THEN
         Book expected = book1;
 
-        //verify(bookRepo).addBook(new Book("1234", "Bibel"));
-        assertEquals(expected,actual);
+        verify(bookRepo).addBook(new Book("1234", "Bibel"));
+        assertEquals(expected, actual);
 
     }
 
     @Test
     void getAllBooks() {
         //Given
-        when(bookRepo.getAllBooks()).thenReturn(List.of(book1,book2));
+        when(bookRepo.getAllBooks()).thenReturn(List.of(book1, book2));
 
         //when
         List actual = bookService.getAllBooks();
 
 
         //then
-        List expected = List.of(book1,book2);
+        List expected = List.of(book1, book2);
 
         assertEquals(expected, actual);
         verify(bookRepo).getAllBooks();
@@ -69,17 +56,27 @@ class BookServiceTest {
         //Given
         when(bookRepo.getBookById("1234")).thenReturn(book1);
 
-        //when
+        //When
         Book actual = bookService.getBookById("1234");
 
         //Then
         Book expected = book1;
-        //verify(bookRepo).getBookById("1234");
+        verify(bookRepo).getBookById("1234");
         assertEquals(expected, actual);
     }
 
     @Test
     void deleteBook() {
+        //Given
+        when(bookRepo.deleteBook("1234")).thenReturn(new Book("1234", "Deleted book"));
+
+        //When
+        Book actual = bookService.deleteBook("1234");
+
+        //Then
+        Book expected = new Book("1234", "Deleted book");
+        assertEquals(expected, actual);
+
 
     }
 }
