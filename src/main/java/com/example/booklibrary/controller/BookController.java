@@ -2,6 +2,7 @@ package com.example.booklibrary.controller;
 
 import com.example.booklibrary.model.Book;
 import com.example.booklibrary.service.BookService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,10 +11,15 @@ import java.util.List;
 @RequestMapping("book") // http://localhost:8080/book
 public class BookController {
 
-    public final BookService bookService = new BookService();
+    public final BookService bookService;
+
+    @Autowired
+    public BookController(BookService bookService) {
+        this.bookService = bookService;
+    }
 
     @PostMapping
-    public Book addBook (Book book) {
+    public Book addBook (@RequestBody Book book) {
         return bookService.addBook(book);
     }
 
@@ -28,5 +34,6 @@ public class BookController {
     }
 
     @DeleteMapping(path = "{isbn}")
-    public Book deleteBook(@PathVariable String isbn) {return bookService.deleteBook(isbn);}
+    public Book deleteBook(@PathVariable String isbn) {
+        return bookService.deleteBook(isbn);}
 }

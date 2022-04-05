@@ -23,6 +23,7 @@ public class BookService {
         return bookRepo.getBookById(isbn);
     }
 
-    public Book deleteBook(String isbn) {return bookRepo.deleteBook(isbn);
+    public Book deleteBook(String isbn) {
+        return bookRepo.deleteBook(isbn);
     }
 }
