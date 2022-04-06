@@ -14,7 +14,14 @@ import java.util.Map;
 @Service
 public class BookRepository {
 
+
     Map<String, Book> bookMap = new HashMap<>();
+
+    public void deleteAll() {
+        bookMap = new HashMap<>();
+    }
+
+
 
     @Autowired
     public BookRepository(){}
